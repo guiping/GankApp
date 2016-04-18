@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">GankApp</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">设置</string>
+    <string name="action_share">分享</string>
+    <string name="action_about_me">关于我</string>
+
+
+    <!--主要功能模块  | 每日最新 |  所有  |  Android | iOS | 前端 | 福利 | 休息视频 | 拓展资源 |  -->
+    <string name="daily_data">每日数据</string>
+    <string name="all_data">所有</string>
+    <string name="android_data">Android</string>
+    <string name="ios_data">iOS</string>
+    <string name="front_data">前端</string>
+    <string name="welfare_data">福利</string>
+    <string name="video_rest_data">休息视频</string>
+    <string name="spread_resource_data">拓展资源</string>
+
+    <string name="resuces_api">http://gank.io/api</string>
+    <string name="github_com">http://www.github.com/guiping</string>
+</resources>

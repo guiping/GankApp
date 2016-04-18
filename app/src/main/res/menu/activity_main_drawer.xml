@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/daily_data"
+            android:icon="@drawable/ic_daily_data"
+            android:title="@string/daily_data" />
+        <item
+            android:id="@+id/all_data"
+            android:icon="@drawable/ic_all_data"
+            android:title="@string/all_data" />
+        <item
+            android:id="@+id/android_data"
+            android:icon="@drawable/ic_android_data"
+            android:title="@string/android_data" />
+        <item
+            android:id="@+id/ios_data"
+            android:icon="@drawable/ic_ios_data"
+            android:title="@string/ios_data" />
+        <item
+            android:id="@+id/front_data"
+            android:icon="@drawable/ic_front_data"
+            android:title="@string/front_data" />
+        <item
+            android:id="@+id/welfare_data"
+            android:icon="@drawable/ic_welfare_data"
+            android:title="@string/welfare_data" />
+        <item
+            android:id="@+id/video_rest_data"
+            android:icon="@drawable/ic_video_rest"
+            android:title="@string/video_rest_data" />
+        <item
+            android:id="@+id/spread_resource_data"
+            android:icon="@drawable/ic_spread_resource_data"
+            android:title="@string/spread_resource_data" />
+    </group>
+
+    <item android:title="AboutMe">
+        <menu>
+            <item
+                android:id="@+id/nav_send"
+                android:icon="@drawable/ic_menu_send"
+                android:title="@string/action_about_me" />
+        </menu>
+    </item>
+
+</menu>
