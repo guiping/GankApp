@@ -15,4 +15,11 @@ public class GankAppAllDataEntity extends BaseEntity {
     public void setResults(List<GankAppEntity> results) {
         this.results = results;
     }
+
+    @Override
+    public String toString() {
+        return "GankAppAllDataEntity{" +
+                "results=" + results +
+                '}';
+    }
 }

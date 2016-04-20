@@ -2,6 +2,9 @@ package so.lvy.app.gankapp.view;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,13 +15,22 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.RelativeLayout;
 
+import java.io.IOException;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import so.lvy.app.gankapp.R;
+import so.lvy.app.gankapp.apiutils.ApiClient;
+import so.lvy.app.gankapp.bean.GankAppAllDataEntity;
 import so.lvy.app.gankapp.utils.SnackbarUtils;
 import so.lvy.app.gankapp.view.BaseActivity;
+import so.lvy.app.gankapp.view.fragment.GankAppAllDataFragment;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-  private RelativeLayout rLayoutContentView;
+    private RelativeLayout rLayoutContentView;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,9 +61,8 @@ public class MainActivity extends BaseActivity
     }
 
     @Override
-    protected  void initView(){
-        rLayoutContentView = $(R.id.rlayout_content_view);
-
+    protected void initView() {
+        rLayoutContentView = (RelativeLayout) $(R.id.rlayout_content_view);
     }
 
     @Override
@@ -103,8 +114,24 @@ public class MainActivity extends BaseActivity
 
         if (id == R.id.daily_data) {   //TODO 每日最新
             // Handle the camera action
-        } else if (id == R.id.all_data) { //TODO 所有数据
+            Log.e("TAG", "点击查看 每日最新数据--->>>>");
 
+            Call<GankAppAllDataEntity> callRequest = ApiClient.getGankApiRetrofit().getGankAppAllData("Android", 1);
+            callRequest.enqueue(new Callback<GankAppAllDataEntity>() {
+                @Override
+                public void onResponse(Call<GankAppAllDataEntity> call, Response<GankAppAllDataEntity> response) {
+                    Log.e("TAG", response.body().getResults().size() + "----" + response.body().getResults().get(0).getWho());
+                }
+                @Override
+                public void onFailure(Call<GankAppAllDataEntity> call, Throwable t) {
+                    Log.e("TAG", "失败" + t.getMessage());
+                }
+            });
+
+
+        } else if (id == R.id.all_data) { //TODO 所有数据
+            GankAppAllDataFragment gankAppAllDataFragment = new GankAppAllDataFragment();
+            replaceView(gankAppAllDataFragment);
         } else if (id == R.id.android_data) { // TODO ANDROID
 
         } else if (id == R.id.ios_data) {   // TODO IOS
@@ -122,5 +149,10 @@ public class MainActivity extends BaseActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void replaceView(Fragment fragment) {
+        FragmentManager fm = getSupportFragmentManager();
+        fm.beginTransaction().replace(R.id.rlayout_content_view, fragment).commitAllowingStateLoss();
     }
 }

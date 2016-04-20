@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import butterknife.ButterKnife;
+import so.lvy.app.gankapp.R;
 import so.lvy.app.gankapp.view.presenter.BasePresenter;
 
 /**
@@ -20,13 +21,19 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         initPresenter();
         initView();
     }
+
     protected abstract int getLayoutId();
+
     protected abstract void initPresenter();
+
     protected abstract void initView();
 
-    /**findViewById(int id)*/
-    public <T extends View> T $(int id){
-       return  (T) super.findViewById(id);
+    /**
+     * findViewById(int id)
+     */
+    public <V extends View> V $(int id) {
+//        return (V) this.findViewById(id);
+        return (V) super.findViewById(id);
     }
 
     @Override

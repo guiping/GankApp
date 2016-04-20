@@ -10,8 +10,8 @@ import so.lvy.app.gankapp.view.presenter.imp.IBaseView;
  * 基类Presenter
  */
 public abstract class BasePresenter <T extends IBaseView>{
-   private Context mContext;
-    private T mIView;
+    public Context mContext;
+    public T mIView;
    public BasePresenter(Context context,T iBaseView){
         this.mContext = context;
         this.mIView = iBaseView;
