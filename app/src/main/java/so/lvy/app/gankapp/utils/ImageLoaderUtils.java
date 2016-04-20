@@ -1,6 +1,7 @@
 package so.lvy.app.gankapp.utils;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -16,11 +17,10 @@ import so.lvy.app.gankapp.R;
  */
 public class ImageLoaderUtils {
     public static void imageLoader(Context context, ImageView iv, String ivPath) {
+
         Glide.with(context)
                 .load(ivPath)
                 .centerCrop()
-                .placeholder(R.mipmap.ic_github)
-                .crossFade()
                 .into(iv);
     }
 }

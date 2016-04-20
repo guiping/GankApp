@@ -17,6 +17,7 @@ public abstract class BasePresenter <T extends IBaseView>{
         this.mIView = iBaseView;
     }
     protected void init(){
+
          mIView.initView();
     }
 

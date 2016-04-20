@@ -11,7 +11,6 @@ import so.lvy.app.gankapp.bean.GankAppEntity;
 public interface IAllDataView extends IBaseView{
     void showProgressBar();
     void hideProgressBar();
-    void getAllDataSucess();
     void getAllDataError();
     void showListViewData(List<GankAppEntity> allDataEntityList);
 }

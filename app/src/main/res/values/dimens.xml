@@ -9,4 +9,45 @@
 
     <dimen name="all_data_item_iv_width">100dp</dimen>
     <dimen name="all_data_item_iv_heigth">100dp</dimen>
+    <!--不同的pading值-->
+    <dimen name="padding5">5dp</dimen>
+    <dimen name="padding10">10dp</dimen>
+    <dimen name="padding15">15dp</dimen>
+    <dimen name="padding20">20dp</dimen>
+    <dimen name="padding25">15dp</dimen>
+    <dimen name="padding30">30dp</dimen>
+    <dimen name="padding35">35dp</dimen>
+
+
+    <!--margin-->
+    <dimen name="margin5">5dp</dimen>
+    <dimen name="margin10">10dp</dimen>
+    <dimen name="margin15">15dp</dimen>
+    <dimen name="margin20">20dp</dimen>
+    <dimen name="margin25">15dp</dimen>
+    <dimen name="margin30">30dp</dimen>
+    <dimen name="margin35">35dp</dimen>
+
+    <!--字体大小-->
+    <dimen name="textSize10">10sp</dimen>
+    <dimen name="textSize11">11sp</dimen>
+    <dimen name="textSize12">12sp</dimen>
+    <dimen name="textSize13">13sp</dimen>
+    <dimen name="textSize14">14sp</dimen>
+    <dimen name="textSize15">15sp</dimen>
+    <dimen name="textSize16">16sp</dimen>
+    <dimen name="textSize17">17sp</dimen>
+    <dimen name="textSize18">18sp</dimen>
+    <dimen name="textSize19">19sp</dimen>
+    <dimen name="textSize20">20sp</dimen>
+    <dimen name="textSize21">21sp</dimen>
+    <dimen name="textSize22">22sp</dimen>
+    <dimen name="textSize23">23sp</dimen>
+    <dimen name="textSize24">24sp</dimen>
+    <dimen name="textSize25">25sp</dimen>
+    <dimen name="textSize26">26sp</dimen>
+    <dimen name="textSize27">27sp</dimen>
+    <dimen name="textSize28">28sp</dimen>
+    <dimen name="textSize29">29sp</dimen>
+    <dimen name="textSize30">30sp</dimen>
 </resources>

@@ -1,6 +1,7 @@
 package so.lvy.app.gankapp.view.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import java.util.List;
 
 import so.lvy.app.gankapp.R;
 import so.lvy.app.gankapp.bean.GankAppEntity;
+import so.lvy.app.gankapp.utils.DataUtils;
 import so.lvy.app.gankapp.utils.ImageLoaderUtils;
 
 /**
@@ -22,10 +24,16 @@ import so.lvy.app.gankapp.utils.ImageLoaderUtils;
  * @description
  * @TODO
  */
-public class GankAllDataRecycleViewAdapter extends RecyclerView.Adapter<GankAllDataRecycleViewAdapter.ViewHolder> {
+public class GankAllDataRecycleViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<GankAppEntity> mList;
     private LayoutInflater mInflater;
     private Context mContext;
+
+    public enum SHOW_TYPE {
+        TYPE_VIDEO, TYPE_IMG, TYPE_TEXT
+    }
+
+    ;
 
     public GankAllDataRecycleViewAdapter(Context context, List<GankAppEntity> list) {
         super();
@@ -35,27 +43,89 @@ public class GankAllDataRecycleViewAdapter extends RecyclerView.Adapter<GankAllD
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(mInflater.inflate(R.layout.item_gankapp_alldata, parent, false));
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View itemView = null;
+        if (viewType == SHOW_TYPE.TYPE_IMG.ordinal()) {   //加载图片
+            return new ImgViewHolder(itemView = mInflater.inflate(R.layout.item_gankapp_img, parent, false));
+        } else if (viewType == SHOW_TYPE.TYPE_VIDEO.ordinal()) {   //带视频的Item
+            return null
+                    ;
+        } else {
+            return new TextViewHolder(itemView = mInflater.inflate(R.layout.item_gankapp_text, parent, false));
+        }
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        GankAppEntity gankAppEntity = mList.get(position);
-        Log.e("TAG--",gankAppEntity.getDesc()+"---"+gankAppEntity.getWho());
-        holder.descTv.setText(gankAppEntity.getDesc()+"   @"+gankAppEntity.getWho());
+    public int getItemViewType(int position) {
+        GankAppEntity gae = mList.get(position);
+        if (gae.getType().contains("休息视频")) {
+            return SHOW_TYPE.TYPE_VIDEO.ordinal();
+        } else if (gae.getType().contains("福利")) {
+            return SHOW_TYPE.TYPE_IMG.ordinal();
+        } else {
+            return SHOW_TYPE.TYPE_TEXT.ordinal();
+        }
     }
+
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        GankAppEntity gankAppEntity = mList.get(position);
+        if (holder instanceof TextViewHolder) {
+            TextViewHolder textHolder = (TextViewHolder) holder;
+            Log.e("TAG--", gankAppEntity.getDesc() + "---" + gankAppEntity.getWho());
+            textHolder.descTv.setText(gankAppEntity.getDesc());
+            textHolder.whoTv.setText("@" + gankAppEntity.getWho());
+            textHolder.publishedAtTv.setText(DataUtils.toDateString(gankAppEntity.getPublishedAt()));
+        } else if(holder instanceof ImgViewHolder){
+            ImgViewHolder imgHolder = (ImgViewHolder) holder;
+            Log.e("TAG--", gankAppEntity.getDesc() + "---" + gankAppEntity.getWho());
+            imgHolder.descTv.setText(gankAppEntity.getDesc());
+            imgHolder.whoTv.setText("@" + gankAppEntity.getWho());
+            int red = (int) (Math.random() * 255);
+            int green = (int) (Math.random() * 255);
+            int blue = (int) (Math.random() * 255);
+            imgHolder.itemIv.setBackgroundColor(Color.argb(204, red, green, blue));
+            ImageLoaderUtils.imageLoader(mContext,imgHolder.itemIv,gankAppEntity.getUrl());
+            imgHolder.publishedAtTv.setText(DataUtils.toDateString(gankAppEntity.getPublishedAt()));
+        }
+    }
+
 
     @Override
     public int getItemCount() {
         return mList == null ? 0 : mList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class TextViewHolder extends RecyclerView.ViewHolder {
         private TextView descTv;
-        public ViewHolder(View itemView) {
+        private TextView whoTv;
+        private TextView publishedAtTv;
+
+        public TextViewHolder(View itemView) {
             super(itemView);
+
             descTv = (TextView) itemView.findViewById(R.id.tv_desc);
+            whoTv = (TextView) itemView.findViewById(R.id.tv_who);
+            publishedAtTv = (TextView) itemView.findViewById(R.id.tv_publishedAt);
+            ;
+
+        }
+    }
+
+    public class ImgViewHolder extends RecyclerView.ViewHolder {
+        private TextView descTv;
+        private TextView whoTv;
+        private TextView publishedAtTv;
+        private ImageView itemIv;
+
+        public ImgViewHolder(View itemView) {
+            super(itemView);
+
+            descTv = (TextView) itemView.findViewById(R.id.tv_desc);
+            whoTv = (TextView) itemView.findViewById(R.id.tv_who);
+            publishedAtTv = (TextView) itemView.findViewById(R.id.tv_publishedAt);
+            itemIv = (ImageView) itemView.findViewById(R.id.item_iv);
+
         }
     }
 }

@@ -9,9 +9,11 @@
     <string name="action_about_me">关于我</string>
 
 
-    <!--主要功能模块  | 每日最新 |  所有  |  Android | iOS | 前端 | 福利 | 休息视频 | 拓展资源 |  -->
+    <!--主要功能模块  | 每日最新 |  所有  |APP | 瞎推荐  Android | iOS | 前端 | 福利 | 休息视频 | 拓展资源 |  -->
     <string name="daily_data">每日数据</string>
     <string name="all_data">所有</string>
+    <string name="App_data">App</string>
+    <string name="xie_data">瞎推荐</string>
     <string name="android_data">Android</string>
     <string name="ios_data">iOS</string>
     <string name="front_data">前端</string>

@@ -14,6 +14,7 @@ import so.lvy.app.gankapp.view.presenter.imp.IAllDataView;
  * 加载所有类型数据的Presenter
  */
 public class AllDataPresenter extends BasePresenter<IAllDataView> {
+    Call<GankAppAllDataEntity> gankAppCall;
     public AllDataPresenter(Context context, IAllDataView iBaseView) {
         super(context, iBaseView);
     }
@@ -24,15 +25,19 @@ public class AllDataPresenter extends BasePresenter<IAllDataView> {
     }
 
     @Override
-    protected void replease() {
-        mIView = null;
+    public void replease() {
+        if (mIView != null)
+           mIView = null;
         mContext = null;
+        if (gankAppCall !=null){
+            gankAppCall.cancel();
+        }
     }
 
     public void getGankAppAllData(String type, int page) {
         if (mIView != null)
             mIView.showProgressBar();
-        Call<GankAppAllDataEntity> gankAppCall = ApiClient.getGankApiRetrofit().getGankAppAllData(type, page);
+        gankAppCall  = ApiClient.getGankApiRetrofit().getGankAppAllData(type, page);
         gankAppCall.enqueue(new Callback<GankAppAllDataEntity>() {
             @Override
             public void onResponse(Call<GankAppAllDataEntity> call, Response<GankAppAllDataEntity> response) {

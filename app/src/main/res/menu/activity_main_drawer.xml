@@ -23,6 +23,10 @@
             android:icon="@drawable/ic_front_data"
             android:title="@string/front_data" />
         <item
+            android:id="@+id/spread_resource_data"
+            android:icon="@drawable/ic_spread_resource_data"
+            android:title="@string/spread_resource_data" />
+        <item
             android:id="@+id/welfare_data"
             android:icon="@drawable/ic_welfare_data"
             android:title="@string/welfare_data" />
@@ -30,10 +34,7 @@
             android:id="@+id/video_rest_data"
             android:icon="@drawable/ic_video_rest"
             android:title="@string/video_rest_data" />
-        <item
-            android:id="@+id/spread_resource_data"
-            android:icon="@drawable/ic_spread_resource_data"
-            android:title="@string/spread_resource_data" />
+
     </group>
 
     <item android:title="AboutMe">

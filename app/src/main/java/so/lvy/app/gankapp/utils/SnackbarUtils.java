@@ -10,7 +10,7 @@ public class SnackbarUtils {
 
     public static void showSnackbar(View view, String message, View.OnClickListener listener){
         Snackbar.make(view, message, Snackbar.LENGTH_SHORT)
-                .setAction("点击",listener).show();
+                .setAction("重试",listener).show();
     }
     public static void showSnackbar(View view, String message){
         showSnackbar(view,message,null);
