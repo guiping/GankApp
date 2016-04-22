@@ -147,5 +147,12 @@ public class GankAppAllDataFragment extends BaseFragment<AllDataPresenter> imple
 
     @Override
     public void onItemRecycleViewListener(int type, GankAppEntity gankAppEntity) {
+     if(type == GankAllDataRecycleViewAdapter.IMGTYPE) {
+         SnackbarUtils.showSnackbar(mRecyclerView,"点击选择图片");
+     } else if(type == GankAllDataRecycleViewAdapter.TEXTTYPE){
+         SnackbarUtils.showSnackbar(mRecyclerView,"点击选择文本");
+     } else if(type == GankAllDataRecycleViewAdapter.VIDEOTYPE) {
+         SnackbarUtils.showSnackbar(mRecyclerView,"点击选择视频");
+     }
     }
 }

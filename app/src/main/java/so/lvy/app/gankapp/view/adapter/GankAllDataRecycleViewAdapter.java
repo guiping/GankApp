@@ -33,9 +33,14 @@ public class GankAllDataRecycleViewAdapter extends RecyclerView.Adapter<Recycler
     private LayoutInflater mInflater;
     private Context mContext;
 
-    public  enum  SHOW_TYPE {
+    public enum SHOW_TYPE {
         TYPE_VIDEO, TYPE_IMG, TYPE_TEXT
-    };
+    }
+
+    public static final int VIDEOTYPE = SHOW_TYPE.TYPE_VIDEO.ordinal();
+    public static final int IMGTYPE = SHOW_TYPE.TYPE_IMG.ordinal();
+    public static final int TEXTTYPE = SHOW_TYPE.TYPE_TEXT.ordinal();
+
     public GankAllDataRecycleViewAdapter(Context context, List<GankAppEntity> list) {
         super();
         this.mContext = context;
@@ -45,17 +50,18 @@ public class GankAllDataRecycleViewAdapter extends RecyclerView.Adapter<Recycler
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = null;
+
         if (viewType == SHOW_TYPE.TYPE_IMG.ordinal()) {   //加载图片
-            return new ImgViewHolder(itemView = mInflater.inflate(R.layout.item_gankapp_img, parent, false));
+            return new ImgViewHolder(mInflater.inflate(R.layout.item_gankapp_img, parent, false));
         } else if (viewType == SHOW_TYPE.TYPE_VIDEO.ordinal()) {   //带视频的Item
             return null
                     ;
         } else {
-            return new TextViewHolder(itemView = mInflater.inflate(R.layout.item_gankapp_text, parent, false));
+            return new TextViewHolder(mInflater.inflate(R.layout.item_gankapp_text, parent, false));
         }
     }
-    private int showType(){
+
+    private int showType() {
         return SHOW_TYPE.TYPE_TEXT.ordinal();
     }
 
@@ -80,27 +86,29 @@ public class GankAllDataRecycleViewAdapter extends RecyclerView.Adapter<Recycler
             textHolder.descTv.setText(gankAppEntity.getDesc());
             textHolder.whoTv.setText("@" + gankAppEntity.getWho());
             textHolder.publishedAtTv.setText(DataUtils.toDateString(gankAppEntity.getPublishedAt()));
-            if (Build.VERSION.SDK_INT >= 23) {
-                textHolder.cardView.setOnContextClickListener(new View.OnContextClickListener() {
-                    @Override
-                    public boolean onContextClick(View v) {
-                        if (itemRecycleViewListener != null ) {
-                            itemRecycleViewListener.onItemRecycleViewListener(SHOW_TYPE.TYPE_TEXT.ordinal(),gankAppEntity);
-                        }
-                        return false;
-                    }
-                });
-            } else {
+//            if (Build.VERSION.SDK_INT >= 23) {
+//                textHolder.cardView.setOnContextClickListener(new View.OnContextClickListener() {
+//                    @Override
+//                    public boolean onContextClick(View v) {
+//                        if (itemRecycleViewListener != null) {
+//                            Log.e("TAG","图片区点击事件---》》》");
+//                            itemRecycleViewListener.onItemRecycleViewListener(SHOW_TYPE.TYPE_TEXT.ordinal(), gankAppEntity);
+//                        }
+//                        return true;
+//                    }
+//                });
+//            } else {
                 textHolder.cardView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (itemRecycleViewListener != null ) {
-                            itemRecycleViewListener.onItemRecycleViewListener(SHOW_TYPE.TYPE_TEXT.ordinal(),gankAppEntity);
+                        if (itemRecycleViewListener != null) {
+                            Log.e("TAG","图片区点击事件-2222222222222--》》》");
+                            itemRecycleViewListener.onItemRecycleViewListener(SHOW_TYPE.TYPE_TEXT.ordinal(), gankAppEntity);
                         }
                     }
                 });
-            }
-        } else if(holder instanceof ImgViewHolder){
+//            }
+        } else if (holder instanceof ImgViewHolder) {
             ImgViewHolder imgHolder = (ImgViewHolder) holder;
             Log.e("TAG--", gankAppEntity.getDesc() + "---" + gankAppEntity.getWho());
             imgHolder.descTv.setText(gankAppEntity.getDesc());
@@ -112,12 +120,12 @@ public class GankAllDataRecycleViewAdapter extends RecyclerView.Adapter<Recycler
             imgHolder.itemIv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(itemRecycleViewListener != null ) {
-                        itemRecycleViewListener.onItemRecycleViewListener(SHOW_TYPE.TYPE_IMG.ordinal(),gankAppEntity);
+                    if (itemRecycleViewListener != null) {
+                        itemRecycleViewListener.onItemRecycleViewListener(SHOW_TYPE.TYPE_IMG.ordinal(), gankAppEntity);
                     }
                 }
             });
-            ImageLoaderUtils.imageLoader(mContext,imgHolder.itemIv,gankAppEntity.getUrl());
+            ImageLoaderUtils.imageLoader(mContext, imgHolder.itemIv, gankAppEntity.getUrl());
             imgHolder.publishedAtTv.setText(DataUtils.toDateString(gankAppEntity.getPublishedAt()));
         }
     }
@@ -160,11 +168,13 @@ public class GankAllDataRecycleViewAdapter extends RecyclerView.Adapter<Recycler
         }
     }
 
-    public interface OnItemRecycleViewListener{
-        void onItemRecycleViewListener(int type,GankAppEntity gankAppEntity);
+    public interface OnItemRecycleViewListener {
+        void onItemRecycleViewListener(int type, GankAppEntity gankAppEntity);
     }
+
     private OnItemRecycleViewListener itemRecycleViewListener;
-    public void setOnItemRecycleViewListener(OnItemRecycleViewListener onItemRecycleViewListener){
+
+    public void setOnItemRecycleViewListener(OnItemRecycleViewListener onItemRecycleViewListener) {
         this.itemRecycleViewListener = onItemRecycleViewListener;
     }
 }
