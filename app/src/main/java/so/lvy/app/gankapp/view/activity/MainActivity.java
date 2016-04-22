@@ -29,9 +29,8 @@ import so.lvy.app.gankapp.view.fragment.GankAppAllDataFragment;
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private RelativeLayout rLayoutContentView;
-    GankAppAllDataFragment gankAppAllDataFragment;
-    private static FloatingActionButton fab;
-
+    private GankAppAllDataFragment gankAppAllDataFragment;
+    private FloatingActionButton fab;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +38,7 @@ public class MainActivity extends BaseActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        fab = (FloatingActionButton) findViewById(R.id.action_share);
+         fab = (FloatingActionButton) findViewById(R.id.action_share);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,9 +66,6 @@ public class MainActivity extends BaseActivity
 
     }
 
-    public static FloatingActionButton getFab() {
-        return fab;
-    }
 
     @Override
     protected int getLayoutId() {
@@ -149,6 +145,7 @@ public class MainActivity extends BaseActivity
             gankAppAllDataFragment = new GankAppAllDataFragment();
             Bundle bun = new Bundle();
             bun.putString("type", type);
+            gankAppAllDataFragment.setFloatingActionButton(fab);
             gankAppAllDataFragment.setArguments(bun);
             refreshShowMessageListener = gankAppAllDataFragment;
         }

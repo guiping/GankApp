@@ -1,7 +1,5 @@
 package so.lvy.app.gankapp.view.fragment;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
@@ -20,11 +18,13 @@ import so.lvy.app.gankapp.view.presenter.AllDataPresenter;
 import so.lvy.app.gankapp.view.presenter.imp.IAllDataView;
 import so.lvy.app.gankapp.view.widget.LMRecyclerView;
 
+import static so.lvy.app.gankapp.view.adapter.GankAllDataRecycleViewAdapter.OnItemRecycleViewListener;
+
 /**
  * Created by ping on 2016/4/20.
  * 显示全部数据
  */
-public class GankAppAllDataFragment extends BaseFragment<AllDataPresenter> implements IAllDataView, SwipeRefreshLayout.OnRefreshListener, LMRecyclerView.LoadMoreListener, MainActivity.RefreshShowMessage {
+public class GankAppAllDataFragment extends BaseFragment<AllDataPresenter> implements IAllDataView, SwipeRefreshLayout.OnRefreshListener, LMRecyclerView.LoadMoreListener, MainActivity.RefreshShowMessage ,OnItemRecycleViewListener{
 
     //    @Bind(R.id.swipe_refresh_layout)
     private SwipeRefreshLayout mSwipeRefreshLayout;
@@ -107,10 +107,11 @@ public class GankAppAllDataFragment extends BaseFragment<AllDataPresenter> imple
     public void initView() {
         mList = new ArrayList<>();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        if (MainActivity.getFab() != null) {
-            mRecyclerView.applyFloatingActionButton(MainActivity.getFab());
+        if (fab != null) {
+            mRecyclerView.applyFloatingActionButton(fab);
         }
         gankAllDataRecycleViewAdapter = new GankAllDataRecycleViewAdapter(getActivity(), mList);
+        gankAllDataRecycleViewAdapter.setOnItemRecycleViewListener(this);
         mRecyclerView.setAdapter(gankAllDataRecycleViewAdapter);
         mRecyclerView.setLoadMoreListener(this);
         mSwipeRefreshLayout.setOnRefreshListener(this);
@@ -144,5 +145,7 @@ public class GankAppAllDataFragment extends BaseFragment<AllDataPresenter> imple
         }
     }
 
-
+    @Override
+    public void onItemRecycleViewListener(int type, GankAppEntity gankAppEntity) {
+    }
 }

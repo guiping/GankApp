@@ -2,6 +2,10 @@ package so.lvy.app.gankapp.view.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Binder;
+import android.os.Build;
+import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,12 +33,9 @@ public class GankAllDataRecycleViewAdapter extends RecyclerView.Adapter<Recycler
     private LayoutInflater mInflater;
     private Context mContext;
 
-    public enum SHOW_TYPE {
+    public  enum  SHOW_TYPE {
         TYPE_VIDEO, TYPE_IMG, TYPE_TEXT
-    }
-
-    ;
-
+    };
     public GankAllDataRecycleViewAdapter(Context context, List<GankAppEntity> list) {
         super();
         this.mContext = context;
@@ -54,6 +55,9 @@ public class GankAllDataRecycleViewAdapter extends RecyclerView.Adapter<Recycler
             return new TextViewHolder(itemView = mInflater.inflate(R.layout.item_gankapp_text, parent, false));
         }
     }
+    private int showType(){
+        return SHOW_TYPE.TYPE_TEXT.ordinal();
+    }
 
     @Override
     public int getItemViewType(int position) {
@@ -68,14 +72,34 @@ public class GankAllDataRecycleViewAdapter extends RecyclerView.Adapter<Recycler
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        GankAppEntity gankAppEntity = mList.get(position);
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+        final GankAppEntity gankAppEntity = mList.get(position);
         if (holder instanceof TextViewHolder) {
             TextViewHolder textHolder = (TextViewHolder) holder;
             Log.e("TAG--", gankAppEntity.getDesc() + "---" + gankAppEntity.getWho());
             textHolder.descTv.setText(gankAppEntity.getDesc());
             textHolder.whoTv.setText("@" + gankAppEntity.getWho());
             textHolder.publishedAtTv.setText(DataUtils.toDateString(gankAppEntity.getPublishedAt()));
+            if (Build.VERSION.SDK_INT >= 23) {
+                textHolder.cardView.setOnContextClickListener(new View.OnContextClickListener() {
+                    @Override
+                    public boolean onContextClick(View v) {
+                        if (itemRecycleViewListener != null ) {
+                            itemRecycleViewListener.onItemRecycleViewListener(SHOW_TYPE.TYPE_TEXT.ordinal(),gankAppEntity);
+                        }
+                        return false;
+                    }
+                });
+            } else {
+                textHolder.cardView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (itemRecycleViewListener != null ) {
+                            itemRecycleViewListener.onItemRecycleViewListener(SHOW_TYPE.TYPE_TEXT.ordinal(),gankAppEntity);
+                        }
+                    }
+                });
+            }
         } else if(holder instanceof ImgViewHolder){
             ImgViewHolder imgHolder = (ImgViewHolder) holder;
             Log.e("TAG--", gankAppEntity.getDesc() + "---" + gankAppEntity.getWho());
@@ -85,6 +109,14 @@ public class GankAllDataRecycleViewAdapter extends RecyclerView.Adapter<Recycler
             int green = (int) (Math.random() * 255);
             int blue = (int) (Math.random() * 255);
             imgHolder.itemIv.setBackgroundColor(Color.argb(204, red, green, blue));
+            imgHolder.itemIv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(itemRecycleViewListener != null ) {
+                        itemRecycleViewListener.onItemRecycleViewListener(SHOW_TYPE.TYPE_IMG.ordinal(),gankAppEntity);
+                    }
+                }
+            });
             ImageLoaderUtils.imageLoader(mContext,imgHolder.itemIv,gankAppEntity.getUrl());
             imgHolder.publishedAtTv.setText(DataUtils.toDateString(gankAppEntity.getPublishedAt()));
         }
@@ -100,15 +132,14 @@ public class GankAllDataRecycleViewAdapter extends RecyclerView.Adapter<Recycler
         private TextView descTv;
         private TextView whoTv;
         private TextView publishedAtTv;
+        private CardView cardView;
 
         public TextViewHolder(View itemView) {
             super(itemView);
-
             descTv = (TextView) itemView.findViewById(R.id.tv_desc);
             whoTv = (TextView) itemView.findViewById(R.id.tv_who);
             publishedAtTv = (TextView) itemView.findViewById(R.id.tv_publishedAt);
-            ;
-
+            cardView = (CardView) itemView.findViewById(R.id.item_alldate_cardview);
         }
     }
 
@@ -127,5 +158,13 @@ public class GankAllDataRecycleViewAdapter extends RecyclerView.Adapter<Recycler
             itemIv = (ImageView) itemView.findViewById(R.id.item_iv);
 
         }
+    }
+
+    public interface OnItemRecycleViewListener{
+        void onItemRecycleViewListener(int type,GankAppEntity gankAppEntity);
+    }
+    private OnItemRecycleViewListener itemRecycleViewListener;
+    public void setOnItemRecycleViewListener(OnItemRecycleViewListener onItemRecycleViewListener){
+        this.itemRecycleViewListener = onItemRecycleViewListener;
     }
 }

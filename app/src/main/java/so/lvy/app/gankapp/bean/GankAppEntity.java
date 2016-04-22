@@ -1,10 +1,11 @@
 package so.lvy.app.gankapp.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by ping on 2016/4/19.
  */
-public class GankAppEntity {
-
+public class GankAppEntity implements Serializable{
     /**
      * _id : 5715097267765974f5e27db0
      * createdAt : 2016-04-19T00:21:06.420Z  //创建时间
