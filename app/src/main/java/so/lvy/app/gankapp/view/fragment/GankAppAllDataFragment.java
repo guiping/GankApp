@@ -1,5 +1,6 @@
 package so.lvy.app.gankapp.view.fragment;
 
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
@@ -11,8 +12,10 @@ import java.util.List;
 import so.lvy.app.gankapp.R;
 import so.lvy.app.gankapp.bean.GankAppEntity;
 import so.lvy.app.gankapp.utils.SnackbarUtils;
+import so.lvy.app.gankapp.utils.StartActivityUtils;
 import so.lvy.app.gankapp.view.BaseFragment;
 import so.lvy.app.gankapp.view.activity.MainActivity;
+import so.lvy.app.gankapp.view.activity.ShowPhotoViewActivity;
 import so.lvy.app.gankapp.view.adapter.GankAllDataRecycleViewAdapter;
 import so.lvy.app.gankapp.view.presenter.AllDataPresenter;
 import so.lvy.app.gankapp.view.presenter.imp.IAllDataView;
@@ -149,6 +152,9 @@ public class GankAppAllDataFragment extends BaseFragment<AllDataPresenter> imple
     public void onItemRecycleViewListener(int type, GankAppEntity gankAppEntity) {
      if(type == GankAllDataRecycleViewAdapter.IMGTYPE) {
          SnackbarUtils.showSnackbar(mRecyclerView,"点击选择图片");
+         Bundle bun = new Bundle();
+         bun.putSerializable("ganAppEntity",gankAppEntity);
+         StartActivityUtils.startActivity(getActivity(), ShowPhotoViewActivity.class,false,bun);
      } else if(type == GankAllDataRecycleViewAdapter.TEXTTYPE){
          SnackbarUtils.showSnackbar(mRecyclerView,"点击选择文本");
      } else if(type == GankAllDataRecycleViewAdapter.VIDEOTYPE) {

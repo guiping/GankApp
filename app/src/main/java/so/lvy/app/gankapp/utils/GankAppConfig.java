@@ -6,4 +6,6 @@ package so.lvy.app.gankapp.utils;
 public class GankAppConfig {
     public static final int  PAGER_SIZE = 20;   //默认一页读取的资源的条目
 
+    public static final String ACTIVITY_PUT_BUNDLE_NAME = "activity.bundle.name";
+
 }

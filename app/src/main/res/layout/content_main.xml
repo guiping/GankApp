@@ -4,12 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="5dp"
+    android:padding="@dimen/padding5"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".view.MainActivity"
+    tools:context=".view.activity.MainActivity"
     tools:showIn="@layout/app_bar_main">
-   <RelativeLayout
-       android:id="@+id/rlayout_content_view"
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"></RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlayout_content_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></RelativeLayout>
 </RelativeLayout>

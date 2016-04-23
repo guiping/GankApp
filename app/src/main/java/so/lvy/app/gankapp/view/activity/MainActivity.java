@@ -34,11 +34,10 @@ public class MainActivity extends BaseActivity
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-         fab = (FloatingActionButton) findViewById(R.id.action_share);
+        fab = (FloatingActionButton) findViewById(R.id.action_share);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -55,6 +54,7 @@ public class MainActivity extends BaseActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -126,9 +126,9 @@ public class MainActivity extends BaseActivity
         } else if (id == R.id.front_data) { // TODO 前端
             replaceAllDataView("前端");
         } else if (id == R.id.welfare_data) { // TODO 福利
-            refreshShowMessageListener.OnRefreshShowMessageListener("福利");
+            replaceAllDataView("福利");
         } else if (id == R.id.video_rest_data) {  // TODO 休息视频
-            refreshShowMessageListener.OnRefreshShowMessageListener("休息视频");
+            replaceAllDataView("休息视频");
 
         } else if (id == R.id.spread_resource_data) { // TODO 拓展资源
             replaceAllDataView("拓展资源");
