@@ -31,6 +31,7 @@ public class MainActivity extends BaseActivity
     private RelativeLayout rLayoutContentView;
     private GankAppAllDataFragment gankAppAllDataFragment;
     private FloatingActionButton fab;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -129,7 +130,6 @@ public class MainActivity extends BaseActivity
             replaceAllDataView("福利");
         } else if (id == R.id.video_rest_data) {  // TODO 休息视频
             replaceAllDataView("休息视频");
-
         } else if (id == R.id.spread_resource_data) { // TODO 拓展资源
             replaceAllDataView("拓展资源");
         }
@@ -152,7 +152,7 @@ public class MainActivity extends BaseActivity
 
         fm.beginTransaction().replace(R.id.rlayout_content_view, gankAppAllDataFragment).commitAllowingStateLoss();
         if (gankAppAllDataFragment != null) {
-            gankAppAllDataFragment.OnRefreshShowMessageListener(type);
+            refreshShowMessageListener.OnRefreshShowMessageListener(type);
         }
 
     }

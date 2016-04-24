@@ -16,8 +16,10 @@ import so.lvy.app.gankapp.utils.StartActivityUtils;
 import so.lvy.app.gankapp.view.BaseFragment;
 import so.lvy.app.gankapp.view.activity.MainActivity;
 import so.lvy.app.gankapp.view.activity.ShowPhotoViewActivity;
+import so.lvy.app.gankapp.view.activity.WebViewDetailMsgActivity;
 import so.lvy.app.gankapp.view.adapter.GankAllDataRecycleViewAdapter;
 import so.lvy.app.gankapp.view.presenter.AllDataPresenter;
+import so.lvy.app.gankapp.view.presenter.WebViewDetailMsgPresenter;
 import so.lvy.app.gankapp.view.presenter.imp.IAllDataView;
 import so.lvy.app.gankapp.view.widget.LMRecyclerView;
 
@@ -58,7 +60,6 @@ public class GankAppAllDataFragment extends BaseFragment<AllDataPresenter> imple
     protected void initPresenter() {
         mAllDataPresenter = new AllDataPresenter(getActivity(), this);
         mAllDataPresenter.init();
-
     }
 
     @Override
@@ -151,12 +152,15 @@ public class GankAppAllDataFragment extends BaseFragment<AllDataPresenter> imple
     @Override
     public void onItemRecycleViewListener(int type, GankAppEntity gankAppEntity) {
      if(type == GankAllDataRecycleViewAdapter.IMGTYPE) {
-         SnackbarUtils.showSnackbar(mRecyclerView,"点击选择图片");
+//         SnackbarUtils.showSnackbar(mRecyclerView,"点击选择图片");
          Bundle bun = new Bundle();
          bun.putSerializable("ganAppEntity",gankAppEntity);
          StartActivityUtils.startActivity(getActivity(), ShowPhotoViewActivity.class,false,bun);
      } else if(type == GankAllDataRecycleViewAdapter.TEXTTYPE){
-         SnackbarUtils.showSnackbar(mRecyclerView,"点击选择文本");
+         Bundle bun = new Bundle();
+         bun.putSerializable("ganAppEntity",gankAppEntity);
+         StartActivityUtils.startActivity(getActivity(), WebViewDetailMsgActivity.class,false,bun);
+//         SnackbarUtils.showSnackbar(mRecyclerView,"点击选择文本");
      } else if(type == GankAllDataRecycleViewAdapter.VIDEOTYPE) {
          SnackbarUtils.showSnackbar(mRecyclerView,"点击选择视频");
      }

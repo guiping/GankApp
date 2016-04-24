@@ -27,6 +27,7 @@
         <activity
             android:name=".view.activity.ShowPhotoViewActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".view.activity.WebViewDetailMsgActivity" android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>
