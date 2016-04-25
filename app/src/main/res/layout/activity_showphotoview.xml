@@ -5,12 +5,17 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context=".view.activity.ShowPhotoViewActivity">
-
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
     <include
+        android:id="@+id/apptools_bar"
         layout="@layout/appbar_layout" />
 
     <ImageView
+        android:layout_below="@id/apptools_bar"
         android:id="@+id/iv_show_photoview"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+   </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>

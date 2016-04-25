@@ -16,8 +16,8 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ButterKnife.bind(this);
         setContentView(getLayoutId());
+        ButterKnife.bind(this);
         initPresenter();
         initView();
     }

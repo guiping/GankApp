@@ -1,25 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:orientation="vertical"
-    android:layout_height="match_parent">
-    <include layout="@layout/appbar_layout"/>
+    android:orientation="vertical">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <WebView
-            android:id="@+id/webview_show_message"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></WebView>
-        <android.support.v7.widget.AppCompatSeekBar
-            android:id="@+id/seekbar_loading"
-            android:layout_centerInParent="true"
-            android:layout_width="match_parent"
-            android:layout_marginLeft="@dimen/margin10"
-            android:layout_marginRight="@dimen/margin10"
-            android:visibility="gone"
-            android:layout_height="wrap_content" />
-    </RelativeLayout>
 
+        <include
+            android:id="@+id/appbarLayout"
+            layout="@layout/appbar_layout" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/appbarLayout">
+
+            <WebView
+                android:id="@+id/webview_show_message"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></WebView>
+
+            <android.support.v4.widget.ContentLoadingProgressBar
+                android:id="@+id/progress_bar"
+                style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorAccent"
+                android:backgroundTintMode="src_atop" />
+        </RelativeLayout>
+    </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>
