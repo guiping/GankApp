@@ -23,7 +23,6 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View v = inflater.inflate(getLayoutId(), container, false);
-        initWidget(v);
         ButterKnife.bind(this, v);
         this.layoutView = v;
         initPresenter();
@@ -44,11 +43,6 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
         ButterKnife.unbind(this);
     }
 
-    protected <T extends View> T $(View itemView ,int id) {
-        return (T) itemView.findViewById(id);
-    }
-
-    protected abstract void initWidget(View view);
 
     protected abstract int getLayoutId();
 

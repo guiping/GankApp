@@ -15,29 +15,35 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
 
+import java.util.Calendar;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import so.lvy.app.gankapp.R;
 import so.lvy.app.gankapp.apiutils.ApiClient;
 import so.lvy.app.gankapp.bean.GankAppAllDataEntity;
+import so.lvy.app.gankapp.utils.DataUtils;
 import so.lvy.app.gankapp.utils.SnackbarUtils;
 import so.lvy.app.gankapp.view.BaseActivity;
 import so.lvy.app.gankapp.view.activity.imp.RefreshMessage;
 import so.lvy.app.gankapp.view.fragment.GankAppAllDataFragment;
+import so.lvy.app.gankapp.view.fragment.GankAppLatestDailyFragment;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private RelativeLayout rLayoutContentView;
     private GankAppAllDataFragment gankAppAllDataFragment;
+    private GankAppLatestDailyFragment gankAppLatestDailyFragment;
     private FloatingActionButton fab;
+    FragmentManager fm ;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        fm = getSupportFragmentManager();
         fab = (FloatingActionButton) findViewById(R.id.action_share);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,7 +70,6 @@ public class MainActivity extends BaseActivity
     @Override
     protected void initView() {
         rLayoutContentView = (RelativeLayout) $(R.id.rlayout_content_view);
-
     }
 
 
@@ -112,12 +117,11 @@ public class MainActivity extends BaseActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
-
         if (id == R.id.daily_data) {   //TODO 每日最新
-            // Handle the camera action
-            Log.e("TAG", "点击查看 每日最新数据--->>>>");
+            replaceAllDataView("每日最新");
+        } else if (id == R.id.xia_data) {   //TODO 瞎推荐
+            replaceAllDataView("瞎推荐");
         } else if (id == R.id.all_data) { //TODO 所有数据
             replaceAllDataView("all");
         } else if (id == R.id.android_data) { // TODO ANDROID
@@ -140,25 +144,30 @@ public class MainActivity extends BaseActivity
     }
 
     private void replaceAllDataView(String type) {
-        FragmentManager fm = getSupportFragmentManager();
-        if (gankAppAllDataFragment == null) {
-            gankAppAllDataFragment = new GankAppAllDataFragment();
-            Bundle bun = new Bundle();
-            bun.putString("type", type);
-            gankAppAllDataFragment.setFloatingActionButton(fab);
-            gankAppAllDataFragment.setArguments(bun);
-            refreshShowMessageListener = gankAppAllDataFragment;
-        }
+        if (type.contains("每日最新")) {   //每日数据
+            if (gankAppLatestDailyFragment == null ) {
+                gankAppLatestDailyFragment = new GankAppLatestDailyFragment();
+                gankAppLatestDailyFragment.setFloatingActionButton(fab);
+            }
+            fm.beginTransaction().replace(R.id.rlayout_content_view, gankAppLatestDailyFragment).commitAllowingStateLoss();
+        } else {
+            if (gankAppAllDataFragment == null) {
+                gankAppAllDataFragment = new GankAppAllDataFragment();
+                Bundle bun = new Bundle();
+                bun.putString("type", type);
+                gankAppAllDataFragment.setFloatingActionButton(fab);
+                gankAppAllDataFragment.setArguments(bun);
+                refreshShowMessageListener = gankAppAllDataFragment;
+            }
+            fm.beginTransaction().replace(R.id.rlayout_content_view, gankAppAllDataFragment).commitAllowingStateLoss();
+            if (gankAppAllDataFragment != null) {
+                refreshShowMessageListener.OnRefreshShowMessageListener(type);
+            }
 
-        fm.beginTransaction().replace(R.id.rlayout_content_view, gankAppAllDataFragment).commitAllowingStateLoss();
-        if (gankAppAllDataFragment != null) {
-            refreshShowMessageListener.OnRefreshShowMessageListener(type);
         }
-
     }
 
     public RefreshShowMessage refreshShowMessageListener;
-
     public interface RefreshShowMessage {
         void OnRefreshShowMessageListener(String type);
     }

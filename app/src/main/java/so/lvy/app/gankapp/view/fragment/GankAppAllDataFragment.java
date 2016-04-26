@@ -4,11 +4,15 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import so.lvy.app.gankapp.R;
 import so.lvy.app.gankapp.bean.GankAppEntity;
 import so.lvy.app.gankapp.utils.SnackbarUtils;
@@ -19,7 +23,6 @@ import so.lvy.app.gankapp.view.activity.ShowPhotoViewActivity;
 import so.lvy.app.gankapp.view.activity.WebViewDetailMsgActivity;
 import so.lvy.app.gankapp.view.adapter.GankAllDataRecycleViewAdapter;
 import so.lvy.app.gankapp.view.presenter.AllDataPresenter;
-import so.lvy.app.gankapp.view.presenter.WebViewDetailMsgPresenter;
 import so.lvy.app.gankapp.view.presenter.imp.IAllDataView;
 import so.lvy.app.gankapp.view.widget.LMRecyclerView;
 
@@ -29,12 +32,12 @@ import static so.lvy.app.gankapp.view.adapter.GankAllDataRecycleViewAdapter.OnIt
  * Created by ping on 2016/4/20.
  * 显示全部数据
  */
-public class GankAppAllDataFragment extends BaseFragment<AllDataPresenter> implements IAllDataView, SwipeRefreshLayout.OnRefreshListener, LMRecyclerView.LoadMoreListener, MainActivity.RefreshShowMessage ,OnItemRecycleViewListener{
+public class GankAppAllDataFragment extends BaseFragment<AllDataPresenter> implements IAllDataView, SwipeRefreshLayout.OnRefreshListener, LMRecyclerView.LoadMoreListener, MainActivity.RefreshShowMessage, OnItemRecycleViewListener {
 
-    //    @Bind(R.id.swipe_refresh_layout)
-    private SwipeRefreshLayout mSwipeRefreshLayout;
-    //    @Bind(R.id.recycler_view)
-    private LMRecyclerView mRecyclerView;
+    @Bind(R.id.recycler_view)
+    LMRecyclerView mRecyclerView;
+    @Bind(R.id.swipe_refresh_layout)
+    SwipeRefreshLayout mSwipeRefreshLayout;
     private int pager = 1;
     private String mType;
     private GankAllDataRecycleViewAdapter gankAllDataRecycleViewAdapter;
@@ -44,12 +47,6 @@ public class GankAppAllDataFragment extends BaseFragment<AllDataPresenter> imple
     private AllDataPresenter mAllDataPresenter;
 
     private boolean isLoadingData = true;
-
-    @Override
-    protected void initWidget(View view) {
-        mSwipeRefreshLayout = $(view, R.id.swipe_refresh_layout);
-        mRecyclerView = $(view, R.id.recycler_view);
-    }
 
     @Override
     protected int getLayoutId() {
@@ -151,18 +148,32 @@ public class GankAppAllDataFragment extends BaseFragment<AllDataPresenter> imple
 
     @Override
     public void onItemRecycleViewListener(int type, GankAppEntity gankAppEntity) {
-     if(type == GankAllDataRecycleViewAdapter.IMGTYPE) {
+        if (type == GankAllDataRecycleViewAdapter.IMGTYPE) {
 //         SnackbarUtils.showSnackbar(mRecyclerView,"点击选择图片");
-         Bundle bun = new Bundle();
-         bun.putSerializable("ganAppEntity",gankAppEntity);
-         StartActivityUtils.startActivity(getActivity(), ShowPhotoViewActivity.class,false,bun);
-     } else if(type == GankAllDataRecycleViewAdapter.TEXTTYPE){
-         Bundle bun = new Bundle();
-         bun.putSerializable("ganAppEntity",gankAppEntity);
-         StartActivityUtils.startActivity(getActivity(), WebViewDetailMsgActivity.class,false,bun);
+            Bundle bun = new Bundle();
+            bun.putSerializable("ganAppEntity", gankAppEntity);
+            StartActivityUtils.startActivity(getActivity(), ShowPhotoViewActivity.class, false, bun);
+        } else if (type == GankAllDataRecycleViewAdapter.TEXTTYPE) {
+            Bundle bun = new Bundle();
+            bun.putSerializable("ganAppEntity", gankAppEntity);
+            StartActivityUtils.startActivity(getActivity(), WebViewDetailMsgActivity.class, false, bun);
 //         SnackbarUtils.showSnackbar(mRecyclerView,"点击选择文本");
-     } else if(type == GankAllDataRecycleViewAdapter.VIDEOTYPE) {
-         SnackbarUtils.showSnackbar(mRecyclerView,"点击选择视频");
-     }
+        } else if (type == GankAllDataRecycleViewAdapter.VIDEOTYPE) {
+            SnackbarUtils.showSnackbar(mRecyclerView, "点击选择视频");
+        }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
     }
 }

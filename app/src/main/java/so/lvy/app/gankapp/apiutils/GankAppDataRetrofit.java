@@ -24,6 +24,6 @@ public interface GankAppDataRetrofit {
     @GET("day/{year}/{month}/{day}")
     Call<GankAppEntity> getLatestDailyData(@Path("year") String year, @Path("month") String month, @Path("day") String day);
 
-    @GET("day/{time}")
-    Call<GankAppEntity> getLatestDailyData(@Path("time") String time);
+    @GET("day/{date}")
+    Call<GankAppEntity> getLatestDailyData(@Path("date") String date);
 }
