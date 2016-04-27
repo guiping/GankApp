@@ -7,7 +7,6 @@ import java.util.List;
  */
 public class GankAppAllDataEntity extends BaseEntity {
     private List<GankAppEntity> results;
-
     public List<GankAppEntity> getResults() {
         return results;
     }

@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 
 /**
- *
  * 添加加载更多功能
  * Created by xybcoder on 2016/3/1.
  */
@@ -34,7 +33,7 @@ public class LMRecyclerView extends RecyclerView {
         this.floatingActionButton = floatingActionButton;
     }
 
-    public void setLoadMoreListener(LoadMoreListener loadMoreListener){
+    public void setLoadMoreListener(LoadMoreListener loadMoreListener) {
         this.listener = loadMoreListener;
     }
 
@@ -78,8 +77,8 @@ public class LMRecyclerView extends RecyclerView {
                 }
             }
         }
-*/
-       LinearLayoutManager layoutManager = (LinearLayoutManager) getLayoutManager();
+   */
+        LinearLayoutManager layoutManager = (LinearLayoutManager) getLayoutManager();
         if (state == RecyclerView.SCROLL_STATE_IDLE) {
             int lastVisibleItem = layoutManager.findLastCompletelyVisibleItemPosition();
             int totalItemCount = layoutManager.getItemCount();

@@ -5,20 +5,24 @@ import android.content.Context;
 import so.lvy.app.gankapp.view.presenter.imp.IBaseView;
 
 /**
- *
  * Created by ping on 2016/4/20.
  * 基类Presenter
  */
-public abstract class BasePresenter <T extends IBaseView>{
+public abstract class BasePresenter<T extends IBaseView> {
     public Context mContext;
     public T mIView;
-   public BasePresenter(Context context,T iBaseView){
+
+    public BasePresenter(Context context, T iBaseView) {
         this.mContext = context;
         this.mIView = iBaseView;
     }
-    public void init(){
-         mIView.initView();
+
+    public void init() {
+        mIView.initView();
     }
 
-    public abstract void replease();
+    public void replease() {
+        mContext = null;
+        mIView = null;
+    }
 }
