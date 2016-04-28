@@ -6,6 +6,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 import so.lvy.app.gankapp.bean.GankAppAllDataEntity;
 import so.lvy.app.gankapp.bean.GankAppEntity;
+import so.lvy.app.gankapp.bean.LatestDailyEntity;
 import so.lvy.app.gankapp.utils.GankAppConfig;
 
 /**
@@ -22,8 +23,8 @@ public interface GankAppDataRetrofit {
      * 同步获取当日最新的资源
      */
     @GET("day/{year}/{month}/{day}")
-    Call<GankAppEntity> getLatestDailyData(@Path("year") String year, @Path("month") String month, @Path("day") String day);
+    Call<LatestDailyEntity> getLatestDailyData(@Path("year") String year, @Path("month") String month, @Path("day") String day);
 
     @GET("day/{date}")
-    Call<GankAppEntity> getLatestDailyData(@Path("date") String date);
+    Call<LatestDailyEntity> getLatestDailyData(@Path("date") String date);
 }

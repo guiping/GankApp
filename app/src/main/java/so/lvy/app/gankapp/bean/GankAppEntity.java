@@ -18,15 +18,15 @@ public class GankAppEntity implements Serializable{
      * who : Jason                                                    //作者
      */
 
-    private String _id;
-    private String createdAt;
-    private String desc;
-    private String publishedAt;
-    private String source;
-    private String type;
-    private String url;
+    private String _id;              //Id
+    private String createdAt;     //创建时间
+    private String desc;           //详情
+    private String publishedAt;   //提交时间
+    private String source;     //资源
+    private String type;            //类型
+    private String url;   //Url
     private boolean used;
-    private String who;
+    private String who;    //作者
 
     public String get_id() {
         return _id;
