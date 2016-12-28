@@ -8,8 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 
 /**
- * 添加加载更多功能
- * Created by xybcoder on 2016/3/1.
+ * 加载更多
  */
 public class LMRecyclerView extends RecyclerView {
 
